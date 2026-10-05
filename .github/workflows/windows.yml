@@ -1,5 +1,7 @@
 name: Bug audit preflight
 on:
+  push:
+    branches: [codex/bug-audit-ci]
   workflow_dispatch:
     inputs:
       target_ref:
@@ -15,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.target_ref }}
+          ref: ${{ inputs.target_ref || '7445d70454ff68536b68f8c7444d9dd376e498ff' }}
       - uses: dtolnay/rust-toolchain@1.89.0
       - uses: Swatinem/rust-cache@v2
         with:
@@ -31,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.target_ref }}
+          ref: ${{ inputs.target_ref || '7445d70454ff68536b68f8c7444d9dd376e498ff' }}
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
@@ -47,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.target_ref }}
+          ref: ${{ inputs.target_ref || '7445d70454ff68536b68f8c7444d9dd376e498ff' }}
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
@@ -66,7 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.target_ref }}
+          ref: ${{ inputs.target_ref || '7445d70454ff68536b68f8c7444d9dd376e498ff' }}
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
